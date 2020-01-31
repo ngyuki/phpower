@@ -1,0 +1,60 @@
+{
+    "name": "ngyuki/phpower",
+    "description": "php assertion library like [Power Assert](https://github.com/power-assert-js/power-assert).",
+    "type": "library",
+    "keywords": [ "testing", "assertion" ],
+    "homepage": "https://github.com/ngyuki/phpower",
+    "license": "MIT",
+    "authors": [
+        { "name": "Toshiyuki Goto", "email": "ngyuki.jp@gmail.com" }
+    ],
+    "config": {
+        "platform": {
+            "php": "7.2"
+        },
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "require": {
+        "php": "^7.2",
+        "microsoft/tolerant-php-parser": "^0.0.19",
+        "symfony/var-dumper": "^4.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "ngyuki\\Phpower\\": "src/"
+        },
+        "files": [
+            "src/autoload.php"
+        ]
+    },
+    "scripts": {
+        "test": [
+            "@php vendor/bin/phpunit --colors=always"
+        ],
+        "coverage": [
+            "@php vendor/bin/phpunit --colors=always --coverage-html coverage"
+        ],
+        "cs": [
+            "@php tools/php-cs-fixer fix --dry-run --diff --ansi -v"
+        ],
+        "fix": [
+            "@php tools/php-cs-fixer fix --diff --ansi -v"
+        ],
+        "phan": [
+            "@php tools/phan -p --color"
+        ],
+        "composer-require-checker": [
+            "@php tools/composer-require-checker --ansi -vvv"
+        ],
+        "qa": [
+            "@composer cs",
+            "@composer phan",
+            "@composer test",
+            "@composer composer-require-checker"
+        ]
+    }
+}
