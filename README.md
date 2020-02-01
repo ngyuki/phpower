@@ -60,7 +60,7 @@ class SomeTest extends TestCase
 Run the test.
 
 ```sh
-vendor/bin/phpunit --dont-report-useless-tests tests/example/
+vendor/bin/phpunit tests/example/
 ```
 
 The following result is displayed.
@@ -68,9 +68,12 @@ The following result is displayed.
 ```
 PHPUnit 8.5.2 by Sebastian Bergmann and contributors.
 
+Runtime:       PHP 7.4.2
+Configuration: /path/to/phpower/phpunit.xml.dist
+
 FFF.F                                                               5 / 5 (100%)
 
-Time: 275 ms, Memory: 4.00 MB
+Time: 261 ms, Memory: 4.00 MB
 
 There were 4 failures:
 
@@ -82,13 +85,15 @@ Assertion failed ($a + ($b + 3)) === ($c * 3) -> false
 # $a + ($b + 3) -> 6
 # $c -> 3
 # $c * 3 -> 9
- in /path/to/phpower/tests/example/SomeTest.php:13
+
+/path/to/phpower/tests/example/SomeTest.php:13
 
 2) Test\SomeTest::test_02
 Assertion failed "a\nb\nc" === strrev($s) -> false
 # $s -> "x\ny\nz"
 # strrev($s) -> "z\ny\nx"
- in /path/to/phpower/tests/example/SomeTest.php:19
+
+/path/to/phpower/tests/example/SomeTest.php:19
 
 3) Test\SomeTest::test_03
 Assertion failed $a == array_reverse($b) -> false
@@ -113,7 +118,8 @@ Assertion failed $a == array_reverse($b) -> false
 #       7,
 #     ]
 #
- in /path/to/phpower/tests/example/SomeTest.php:26
+
+/path/to/phpower/tests/example/SomeTest.php:26
 
 4) Test\SomeTest::test_04
 Assertion failed $a == ['name'=>'bob','uid'=>2000,'gid'=>2000,] -> false
@@ -124,10 +130,11 @@ Assertion failed $a == ['name'=>'bob','uid'=>2000,'gid'=>2000,] -> false
 #       "gid" => 1000,
 #     ]
 #
- in /path/to/phpower/tests/example/SomeTest.php:46
+
+/path/to/phpower/tests/example/SomeTest.php:46
 
 FAILURES!
-Tests: 5, Assertions: 4, Failures: 4.
+Tests: 5, Assertions: 5, Failures: 4.
 ```
 
 ## LICENCE

@@ -3,6 +3,7 @@ namespace ngyuki\Phpower;
 
 use Microsoft\PhpParser\Node;
 use Microsoft\PhpParser\Token;
+use PHPUnit\Framework\Assert;
 use ReflectionClass;
 
 class Transpiler
@@ -44,20 +45,20 @@ class Transpiler
          // Node\StringLiteral::class => true,
     ];
 
+    private $assert = 0;
+
     public function __invoke(string $source): string
     {
-        $assert = 0;
-        return (new NodeTraverser(function (Node $node, callable $next) use (&$assert) {
-            $recorder = '\\' . Recorder::class;
-            if ($argument = $this->fetchAssertArgumentExpression($node)) {
-                $assert++;
-                try {
-                    return "$recorder::init()->expr({$next($argument)}), $recorder::dump()";
-                } finally {
-                    $assert--;
+        $this->assert = 0;
+        return (new NodeTraverser(function (Node $node, callable $next) {
+            if ($node instanceof Node\Expression\CallExpression) {
+                $output = $this->processAssertCallExpression($node, $next);
+                if (is_string($output)) {
+                    return $output;
                 }
             }
-            if ($assert && $this->isCaptureNode($node)) {
+            if ($this->assert && $this->isCaptureNode($node)) {
+                $recorder = '\\' . Recorder::class;
                 $expr = var_export($this->prettyExpression($node), true);
                 return "$recorder::cap($expr,{$next($node)})";
             }
@@ -65,31 +66,33 @@ class Transpiler
         }))->traverse($source);
     }
 
-    private function fetchAssertArgumentExpression(Node $node): ?Node
+    private function processAssertCallExpression(Node\Expression\CallExpression $node, callable $next): ?string
     {
-        $parent = $node->parent;
-        if ($parent instanceof Node\Expression\CallExpression === false) {
+        if ($node->callableExpression->getText() !== 'assert') {
             return null;
         }
-        /* @var Node\Expression\CallExpression $parent */
-        if ($parent->callableExpression->getText() !== 'assert') {
+        $argumentList = $node->argumentExpressionList;
+        if ($argumentList === null) {
             return null;
         }
-        $argumentExpressionList = $parent->argumentExpressionList;
-        if ($argumentExpressionList === null) {
+        if (count($argumentList->children) !== 1) {
             return null;
         }
-        if ($argumentExpressionList !== $node) {
+        $argument = $argumentList->children[0];
+        if ($argument instanceof Node === false) {
             return null;
         }
-        if (count($argumentExpressionList->children) !== 1) {
-            return null;
+        $recorder = '\\' . Recorder::class;
+        $assert = '\\' . Assert::class;
+        $this->assert++;
+        try {
+            return $node->callableExpression->getLeadingCommentAndWhitespaceText()
+                . $node->openParen->getFullText($node->getFileContents())
+                . "$recorder::init()->expr({$next($argument)}) ? $assert::assertTrue(true) : $assert::fail($recorder::dump())"
+                . $node->closeParen->getFullText($node->getFileContents());
+        } finally {
+            $this->assert--;
         }
-        $argumentExpression = $argumentExpressionList->children[0];
-        if ($argumentExpression instanceof Node === false) {
-            return null;
-        }
-        return $argumentExpression;
     }
 
     private function isCaptureNode(Node $node)
