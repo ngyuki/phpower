@@ -15,9 +15,8 @@ class SomeTest extends TestCase
 
     public function test_02()
     {
-        $a = 'abc';
-        $b = 'xyz';
-        assert($a == strrev($b));
+        $s = "x\ny\nz";
+        assert("a\nb\nc" === strrev($s));
     }
 
     public function test_03()
@@ -32,5 +31,18 @@ class SomeTest extends TestCase
         $a = [1,2,3];
         $b = [3,2,1];
         assert($a == array_reverse($b));
+    }
+    public function test_04()
+    {
+        $a = [
+            'name' => 'alice',
+            'uid' => 1000,
+            'gid' => 1000,
+        ];
+        assert($a == [
+            'name' => 'bob',
+            'uid' => 2000,
+            'gid' => 2000,
+        ]);
     }
 }

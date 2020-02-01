@@ -24,9 +24,8 @@ class SomeTest extends TestCase
 
     public function test_02()
     {
-        $a = 'abc';
-        $b = 'xyz';
-        assert($a == strrev($b));
+        $s = "x\ny\nz";
+        assert("a\nb\nc" === strrev($s));
     }
 
     public function test_03()
@@ -42,6 +41,19 @@ class SomeTest extends TestCase
         $b = [3,2,1];
         assert($a == array_reverse($b));
     }
+    public function test_04()
+    {
+        $a = [
+            'name' => 'alice',
+            'uid' => 1000,
+            'gid' => 1000,
+        ];
+        assert($a == [
+            'name' => 'bob',
+            'uid' => 2000,
+            'gid' => 2000,
+        ]);
+    }
 }
 ```
 
@@ -56,68 +68,66 @@ The following result is displayed.
 ```
 PHPUnit 8.5.2 by Sebastian Bergmann and contributors.
 
-FFF.                                                                4 / 4 (100%)
+FFF.F                                                               5 / 5 (100%)
 
-Time: 293 ms, Memory: 4.00 MB
+Time: 275 ms, Memory: 4.00 MB
 
-There were 3 failures:
+There were 4 failures:
 
 1) Test\SomeTest::test_01
-Assertion failed.
-# ($a + ($b + 3)) === ($c * 3)
-#   -> false
-# $c * 3
-#   -> 9
-# $c
-#   -> 3
-# $a + ($b + 3)
-#   -> 6
-# $b + 3
-#   -> 5
-# $b
-#   -> 2
-# $a
-#   -> 1
+Assertion failed ($a + ($b + 3)) === ($c * 3) -> false
+# $a -> 1
+# $b -> 2
+# $b + 3 -> 5
+# $a + ($b + 3) -> 6
+# $c -> 3
+# $c * 3 -> 9
  in /path/to/phpower/tests/example/SomeTest.php:13
 
 2) Test\SomeTest::test_02
-Assertion failed.
-# $a == strrev($b)
-#   -> false
-# strrev($b)
-#   -> "zyx"
-# $b
-#   -> "xyz"
-# $a
-#   -> "abc"
- in /path/to/phpower/tests/example/SomeTest.php:20
+Assertion failed "a\nb\nc" === strrev($s) -> false
+# $s -> "x\ny\nz"
+# strrev($s) -> "z\ny\nx"
+ in /path/to/phpower/tests/example/SomeTest.php:19
 
 3) Test\SomeTest::test_03
-Assertion failed.
-# $a == array_reverse($b)
-#   -> false
-# array_reverse($b)
-#   -> [
-#        9,
-#        8,
-#        7,
-#      ]
-# $b
-#   -> [
-#        7,
-#        8,
-#        9,
-#      ]
+Assertion failed $a == array_reverse($b) -> false
 # $a
-#   -> [
-#        1,
-#        2,
-#        3,
-#      ]
- in /path/to/phpower/tests/example/SomeTest.php:27
+#  -> [
+#       1,
+#       2,
+#       3,
+#     ]
+#
+# $b
+#  -> [
+#       7,
+#       8,
+#       9,
+#     ]
+#
+# array_reverse($b)
+#  -> [
+#       9,
+#       8,
+#       7,
+#     ]
+#
+ in /path/to/phpower/tests/example/SomeTest.php:26
+
+4) Test\SomeTest::test_04
+Assertion failed $a == ['name'=>'bob','uid'=>2000,'gid'=>2000,] -> false
+# $a
+#  -> [
+#       "name" => "alice",
+#       "uid" => 1000,
+#       "gid" => 1000,
+#     ]
+#
+ in /path/to/phpower/tests/example/SomeTest.php:46
 
 FAILURES!
-Tests: 4, Assertions: 3, Failures: 3.
+Tests: 5, Assertions: 4, Failures: 4.
 ```
 
 ## LICENCE

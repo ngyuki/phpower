@@ -2,6 +2,7 @@
 namespace ngyuki\Phpower;
 
 use Microsoft\PhpParser\Node;
+use Microsoft\PhpParser\Token;
 
 class Transpiler
 {
@@ -19,7 +20,7 @@ class Transpiler
                 }
             }
             if ($assert && $this->isCaptureNode($node)) {
-                $expr = var_export($node->getText(), true);
+                $expr = var_export($this->prettyExpression($node), true);
                 return "$recorder::cap($expr,{$next($node)})";
             }
             return $next($node);
@@ -74,5 +75,22 @@ class Transpiler
             return false;
         }
         return true;
+    }
+
+    private function prettyExpression(Node $node): string
+    {
+        $arr = [];
+        foreach ($node->getChildNodesAndTokens() as $child) {
+            if ($child instanceof Node) {
+                $arr[] = $this->prettyExpression($child);
+            } elseif ($child instanceof Token) {
+                $arr[] = $child->getText($node->getFileContents());
+            }
+        }
+        $delimiter = '';
+        if ($node instanceof Node\Expression\BinaryExpression) {
+            $delimiter = ' ';
+        }
+        return implode($delimiter, $arr);
     }
 }

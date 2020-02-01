@@ -17,6 +17,7 @@
     },
     "require": {
         "php": "^7.2",
+        "ext-json": "^7.2",
         "microsoft/tolerant-php-parser": "^0.0.19",
         "symfony/var-dumper": "^4.4"
     },
