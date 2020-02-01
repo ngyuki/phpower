@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace ngyuki\Phpower;
 
 use php_user_filter;
