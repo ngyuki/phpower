@@ -3,9 +3,47 @@ namespace ngyuki\Phpower;
 
 use Microsoft\PhpParser\Node;
 use Microsoft\PhpParser\Token;
+use ReflectionClass;
 
 class Transpiler
 {
+    private $captureNodeClasses = [
+         // Node\Expression\AnonymousFunctionCreationExpression::class => true,
+         // Node\Expression\ArgumentExpression::class => true,
+         // Node\Expression\ArrayCreationExpression::class => true,
+         Node\Expression\ArrowFunctionCreationExpression::class => true,
+         Node\Expression\BinaryExpression::class => true,
+         Node\Expression\AssignmentExpression::class => true,
+         // Node\Expression\BracedExpression::class => true,
+         Node\Expression\CallExpression::class => true,
+         Node\Expression\CastExpression::class => true,
+         // Node\Expression\ErrorControlExpression::class => true,
+         Node\Expression\PrefixUpdateExpression::class => true,
+         // Node\Expression\UnaryOpExpression::class => true,
+         // Node\Expression\CloneExpression::class => true,
+         // Node\Expression\EchoExpression::class => true,
+         Node\Expression\EmptyIntrinsicExpression::class => true,
+         Node\Expression\EvalIntrinsicExpression::class => true,
+         // Node\Expression\ExitIntrinsicExpression::class => true,
+         Node\Expression\IssetIntrinsicExpression::class => true,
+         // Node\Expression\ListIntrinsicExpression::class => true,
+         Node\Expression\MemberAccessExpression::class => true,
+         Node\Expression\ObjectCreationExpression::class => true,
+         // Node\Expression\ParenthesizedExpression::class => true,
+         Node\Expression\PostfixUpdateExpression::class => true,
+         // Node\Expression\PrintIntrinsicExpression::class => true,
+         Node\Expression\ScopedPropertyAccessExpression::class => true,
+         Node\Expression\ScriptInclusionExpression::class => true,
+         Node\Expression\SubscriptExpression::class => true,
+         Node\Expression\TernaryExpression::class => true,
+         // Node\Expression\UnsetIntrinsicExpression::class => true,
+         Node\Expression\Variable::class => true,
+         // Node\Expression\YieldExpression::class => true,
+         // Node\NumericLiteral::class => true,
+         // Node\ReservedWord::class => true,
+         // Node\StringLiteral::class => true,
+    ];
+
     public function __invoke(string $source): string
     {
         $assert = 0;
@@ -59,22 +97,16 @@ class Transpiler
         if ($node instanceof Node\Expression === false) {
             return false;
         }
-        if ($node instanceof Node\StringLiteral) {
-            return false;
+        $classes = [];
+        for ($r = new ReflectionClass($node); $r; $r = $r->getParentClass()) {
+            $classes[] = $r->getName();
         }
-        if ($node instanceof Node\NumericLiteral) {
-            return false;
+        foreach ($classes as $class) {
+            if ($this->captureNodeClasses[$class] ?? false) {
+                return true;
+            }
         }
-        if ($node instanceof Node\Expression\ArrayCreationExpression) {
-            return false;
-        }
-        if ($node instanceof Node\Expression\ArgumentExpression) {
-            return false;
-        }
-        if ($node instanceof Node\Expression\ParenthesizedExpression) {
-            return false;
-        }
-        return true;
+        return false;
     }
 
     private function prettyExpression(Node $node): string
@@ -89,6 +121,9 @@ class Transpiler
         }
         $delimiter = '';
         if ($node instanceof Node\Expression\BinaryExpression) {
+            $delimiter = ' ';
+        }
+        if ($node instanceof Node\Expression\TernaryExpression) {
             $delimiter = ' ';
         }
         return implode($delimiter, $arr);
