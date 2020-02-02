@@ -28,7 +28,7 @@ class Transpiler
          // Node\Expression\ExitIntrinsicExpression::class => true,
          Node\Expression\IssetIntrinsicExpression::class => true,
          // Node\Expression\ListIntrinsicExpression::class => true,
-         Node\Expression\MemberAccessExpression::class => true,
+         // Node\Expression\MemberAccessExpression::class => true,
          Node\Expression\ObjectCreationExpression::class => true,
          // Node\Expression\ParenthesizedExpression::class => true,
          Node\Expression\PostfixUpdateExpression::class => true,
@@ -57,12 +57,21 @@ class Transpiler
                     return $output;
                 }
             }
-            if ($this->assert && $this->isCaptureNode($node)) {
-                $recorder = '\\' . Recorder::class;
-                $expr = var_export($this->prettyExpression($node), true);
-                return "$recorder::cap($expr,{$next($node)})";
+            if (!$this->assert) {
+                return $next($node);
             }
-            return $next($node);
+            //fputs(STDERR, str_repeat(' ', $this->assert) . get_class($node) . ' ' . $node->getText() . PHP_EOL);
+            $this->assert++;
+            try {
+                if ($this->isCaptureNode($node)) {
+                    $recorder = '\\' . Recorder::class;
+                    $expr = var_export($this->prettyExpression($node), true);
+                    return "$recorder::cap($expr,{$next($node)})";
+                }
+                return $next($node);
+            } finally {
+                $this->assert--;
+            }
         }))->traverse($source);
     }
 
@@ -106,6 +115,12 @@ class Transpiler
         }
         foreach ($classes as $class) {
             if ($this->captureNodeClasses[$class] ?? false) {
+                return true;
+            }
+        }
+        if ($node instanceof Node\Expression\MemberAccessExpression) {
+            if ($node->parent instanceof Node\Expression\CallExpression === false) {
+                // object property
                 return true;
             }
         }

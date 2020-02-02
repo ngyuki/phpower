@@ -1,0 +1,3 @@
+Assertion failed $o->get() === 2 -> false
+# $o -> @anonymous {#999}
+# $o->get() -> 1
