@@ -2,6 +2,12 @@
 
 `phpower` is php assertion library like [Power Assert](https://github.com/power-assert-js/power-assert).
 
+## Install
+
+```sh
+composer require --dev phpunit/phpunit ngyuki/phpower:dev-master
+```
+
 ## Example
 
 Write test code with `assert`.
@@ -136,6 +142,10 @@ Assertion failed $a == ['name'=>'bob','uid'=>2000,'gid'=>2000,] -> false
 FAILURES!
 Tests: 5, Assertions: 5, Failures: 4.
 ```
+
+## Restriction
+
+Only for phpunit installed locally in project with composer (phpunit.phar is not supported).
 
 ## LICENCE
 
