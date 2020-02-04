@@ -12,16 +12,38 @@ class CasesTest extends TestCase
     {
         $dir = escapeshellarg(__DIR__ . '/cases/output');
         `git checkout --  $dir`;
+        `git clean -f --  $dir`;
     }
 
     /**
+     * @test
      * @dataProvider data
      * @param string $file
      * @param string $dest
      */
-    public function test(string $file, string $dest)
+    public function transpiler(string $file, string $dest)
     {
         $expected = '';
+        $dest .= '.php';
+        if (file_exists($dest)) {
+            $expected = file_get_contents($dest);
+        }
+        $source = file_get_contents($file);
+        $output = (new Transpiler())($source);
+        file_put_contents($dest, $output);
+        assertEquals($expected, $output);
+    }
+
+    /**
+     * @test
+     * @dataProvider data
+     * @param string $file
+     * @param string $dest
+     */
+    public function assertion(string $file, string $dest)
+    {
+        $expected = '';
+        $dest .= '.txt';
         if (file_exists($dest)) {
             $expected = file_get_contents($dest);
         }
@@ -40,7 +62,7 @@ class CasesTest extends TestCase
         $files = glob(__DIR__ . '/cases/*.php');
         $tests = [];
         foreach ($files as $file) {
-            $tests[basename($file)] = [$file, dirname($file) . '/output/' . basename($file, '.php') . '.txt'];
+            $tests[basename($file)] = [$file, dirname($file) . '/output/' . basename($file, '.php')];
         }
         return $tests;
     }
