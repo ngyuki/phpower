@@ -40,6 +40,30 @@ class CasesTest extends TestCase
      * @param string $file
      * @param string $dest
      */
+    public function tree(string $file, string $dest)
+    {
+        $expected = '';
+        $dest .= '.tree.txt';
+        if (file_exists($dest)) {
+            $expected = file_get_contents($dest);
+        }
+        $source = file_get_contents($file);
+        ob_start();
+        try {
+            (new Transpiler())->withDebug()($source);
+        } finally {
+            $output = ob_get_clean();
+        }
+        file_put_contents($dest, $output);
+        assertEquals($expected, $output);
+    }
+
+    /**
+     * @test
+     * @dataProvider data
+     * @param string $file
+     * @param string $dest
+     */
     public function assertion(string $file, string $dest)
     {
         $expected = '';

@@ -1,0 +1,5 @@
+    @Microsoft\PhpParser\Node\Expression\BinaryExpression $o->get() === 2
+        @Microsoft\PhpParser\Node\Expression\CallExpression $o->get()
+             Microsoft\PhpParser\Node\Expression\MemberAccessExpression $o->get
+                @Microsoft\PhpParser\Node\Expression\Variable $o
+         Microsoft\PhpParser\Node\NumericLiteral 2

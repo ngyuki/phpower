@@ -47,6 +47,15 @@ class Transpiler
 
     private $assert = 0;
 
+    private $debug = false;
+
+    public function withDebug(): self
+    {
+        $clone = clone $this;
+        $clone->debug = true;
+        return $clone;
+    }
+
     public function __invoke(string $source): string
     {
         $this->assert = 0;
@@ -60,7 +69,11 @@ class Transpiler
             if (!$this->assert) {
                 return $next($node);
             }
-            //fputs(STDERR, str_repeat(' ', $this->assert) . get_class($node) . ' ' . $node->getText() . PHP_EOL);
+            if ($this->debug) {
+                echo str_repeat('    ', $this->assert) . ($this->isCaptureNode($node)  ? '@' : ' ').
+                    get_class($node) . ' ' . $node->getText() . PHP_EOL;
+            }
+
             $this->assert++;
             try {
                 if ($this->isCaptureNode($node)) {
