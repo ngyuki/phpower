@@ -1,6 +1,6 @@
 {
     "name": "ngyuki/phpower",
-    "description": "php assertion library like [Power Assert](https://github.com/power-assert-js/power-assert).",
+    "description": "php assertion library like Power Assert.",
     "type": "library",
     "keywords": [ "testing", "assertion" ],
     "homepage": "https://github.com/ngyuki/phpower",
