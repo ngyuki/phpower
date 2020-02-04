@@ -46,10 +46,6 @@ class NodeTraverser
 
     private function recursive(Node $node): string
     {
-        $output = ($this->callback)($node, $this->next);
-        if (is_string($output)) {
-            return $output;
-        }
-        return $this->next($node);
+        return ($this->callback)($node, $this->next);
     }
 }

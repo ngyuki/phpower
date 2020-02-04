@@ -4,22 +4,20 @@ namespace ngyuki\Phpower;
 use Microsoft\PhpParser\Node;
 use PHPUnit\Util\Filesystem;
 use ReflectionClass;
-use Throwable;
 
-try {
+StreamFilter::register();
+
+if (class_exists(Filesystem::class, true)) {
     // @phan-suppress-next-line PhanPossiblyFalseTypeArgumentInternal
     $dir = dirname((new ReflectionClass(Filesystem::class))->getFileName());
 
-    Loader::load($dir . DIRECTORY_SEPARATOR . '/FileLoader.php', function (string $source) {
+    StreamFilter::load($dir . DIRECTORY_SEPARATOR . '/FileLoader.php', function (string $source) {
         return (new NodeTraverser(function (Node $node, callable $next) {
             if ($node instanceof Node\Expression\ScriptInclusionExpression) {
                 return $node->requireOrIncludeKeyword->getLeadingCommentsAndWhitespaceText($node->getFileContents())
-                    . '\\' . Loader::class . '::load(' . $next($node->expression) . ', new \\' . Transpiler::class . '())';
+                    . '\\' . StreamFilter::class . '::load(' . $next($node->expression) . ', new \\' . Transpiler::class . '())';
             }
-
-            return null;
+            return $next($node);
         }))->traverse($source);
     });
-} catch (Throwable $ex) {
-    // pass
 }

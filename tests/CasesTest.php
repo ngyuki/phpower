@@ -1,7 +1,7 @@
 <?php
 namespace Test;
 
-use ngyuki\Phpower\Loader;
+use ngyuki\Phpower\StreamFilter;
 use ngyuki\Phpower\Transpiler;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\TestCase;
@@ -26,7 +26,7 @@ class CasesTest extends TestCase
             $expected = file_get_contents($dest);
         }
         try {
-            Loader::load($file, new Transpiler());
+            StreamFilter::load($file, new Transpiler());
         } catch (AssertionFailedError $ex) {
             $normalizedMessage = $this->normalize($ex->getMessage());
             file_put_contents($dest, $normalizedMessage);

@@ -19,6 +19,22 @@ class StreamFilter extends php_user_filter
      */
     private $source = '';
 
+    public static function register(): void
+    {
+        stream_filter_register('phpower', static::class);
+    }
+
+    public static function load(string $filename, callable $translator)
+    {
+        static::$translator = $translator;
+        try {
+            /** @noinspection PhpIncludeInspection */
+            return include "php://filter/read=phpower/resource={$filename}";
+        } finally {
+            static::$translator = null;
+        }
+    }
+
     public function onCreate()
     {
         return true;
@@ -37,7 +53,7 @@ class StreamFilter extends php_user_filter
         }
         if ($closing) {
             $source = $this->source;
-            if ($translator = self::$translator) {
+            if ($translator = static::$translator) {
                 $source = $translator($source);
             }
             $bucket = stream_bucket_new($this->stream, $source);
