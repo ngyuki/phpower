@@ -1,0 +1,12 @@
+Assertion failed ++$i === $j-- && +$n === -$m && $n === ~$m && false -> false
+# ++$i -> 2
+# $j-- -> 2
+# ++$i === $j-- -> true
+# $n -> 1
+# $m -> -1
+# +$n === -$m -> true
+# ++$i === $j-- && +$n === -$m -> true
+# $n -> 1
+# $m -> -1
+# $n === ~$m -> false
+# ++$i === $j-- && +$n === -$m && $n === ~$m -> false

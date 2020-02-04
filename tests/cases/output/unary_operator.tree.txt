@@ -1,0 +1,18 @@
+    @Microsoft\PhpParser\Node\Expression\BinaryExpression ++$i === $j-- && +$n === -$m && $n === ~$m && false
+        @Microsoft\PhpParser\Node\Expression\BinaryExpression ++$i === $j-- && +$n === -$m && $n === ~$m
+            @Microsoft\PhpParser\Node\Expression\BinaryExpression ++$i === $j-- && +$n === -$m
+                @Microsoft\PhpParser\Node\Expression\BinaryExpression ++$i === $j--
+                    @Microsoft\PhpParser\Node\Expression\PrefixUpdateExpression ++$i
+                         Microsoft\PhpParser\Node\Expression\Variable $i
+                    @Microsoft\PhpParser\Node\Expression\PostfixUpdateExpression $j--
+                         Microsoft\PhpParser\Node\Expression\Variable $j
+                @Microsoft\PhpParser\Node\Expression\BinaryExpression +$n === -$m
+                     Microsoft\PhpParser\Node\Expression\UnaryOpExpression +$n
+                        @Microsoft\PhpParser\Node\Expression\Variable $n
+                     Microsoft\PhpParser\Node\Expression\UnaryOpExpression -$m
+                        @Microsoft\PhpParser\Node\Expression\Variable $m
+            @Microsoft\PhpParser\Node\Expression\BinaryExpression $n === ~$m
+                @Microsoft\PhpParser\Node\Expression\Variable $n
+                 Microsoft\PhpParser\Node\Expression\UnaryOpExpression ~$m
+                    @Microsoft\PhpParser\Node\Expression\Variable $m
+         Microsoft\PhpParser\Node\ReservedWord false

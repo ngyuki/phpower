@@ -126,6 +126,16 @@ class Transpiler
         for ($r = new ReflectionClass($node); $r; $r = $r->getParentClass()) {
             $classes[] = $r->getName();
         }
+        if ($node instanceof Node\Expression\Variable) {
+            if ($node->parent instanceof Node\Expression\PrefixUpdateExpression) {
+                // ++$i
+                return false;
+            }
+            if ($node->parent instanceof Node\Expression\PostfixUpdateExpression) {
+                // $i++
+                return false;
+            }
+        }
         foreach ($classes as $class) {
             if ($this->captureNodeClasses[$class] ?? false) {
                 return true;
