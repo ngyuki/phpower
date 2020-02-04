@@ -1,5 +1,9 @@
 # phpower
 
+[![Latest Stable Version](https://poser.pugx.org/ngyuki/phpower/v/stable)](https://packagist.org/packages/ngyuki/phpower)
+[![Latest Unstable Version](https://poser.pugx.org/ngyuki/phpower/v/unstable)](https://packagist.org/packages/ngyuki/phpower)
+[![License](https://poser.pugx.org/ngyuki/phpower/license)](https://packagist.org/packages/ngyuki/phpower)
+
 `phpower` is php assertion library like [Power Assert](https://github.com/power-assert-js/power-assert).
 
 ## Install
