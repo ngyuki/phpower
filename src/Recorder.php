@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnused */ declare(strict_types=1);
+<?php /** @noinspection PhpUnused */
+declare(strict_types=1);
+
 namespace ngyuki\Phpower;
 
 class Recorder

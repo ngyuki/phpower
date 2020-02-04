@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
+
 namespace ngyuki\Phpower;
 
 use Symfony\Component\VarDumper\Cloner\VarCloner;
@@ -23,16 +25,16 @@ class Reporter
         $this->dumper = new CliDumper(null, null, AbstractDumper::DUMP_LIGHT_ARRAY | AbstractDumper::DUMP_TRAILING_COMMA);
     }
 
-    public function report(array $statements)
+    public function report(array $assertions)
     {
-        if (!$statements) {
+        if (!$assertions) {
             return 'Assertion ok';
         }
 
-        $last = array_pop($statements);
+        $last = array_pop($assertions);
 
         $report = '';
-        foreach ($statements as list($expression, $variable)) {
+        foreach ($assertions as list($expression, $variable)) {
             $output = trim($this->dump($variable));
             if (strpos($output, "\n") === false) {
                 $report .= "$expression -> $output\n";
