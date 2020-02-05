@@ -1,0 +1,2 @@
+Assertion failed ClassMethodCase::f() === 2 -> false
+# ClassMethodCase::f() -> 1

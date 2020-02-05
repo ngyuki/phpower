@@ -143,6 +143,17 @@ class Transpiler
                 // isset()
                 return false;
             }
+            if ($parent instanceof Node\Expression\ScopedPropertyAccessExpression) {
+                // Class::$v
+                // Class::f()
+                return false;
+            }
+        }
+        if ($node instanceof Node\Expression\ScopedPropertyAccessExpression) {
+            if ($node->parent instanceof Node\Expression\CallExpression) {
+                // Class::f()
+                return false;
+            }
         }
         foreach ($classes as $class) {
             if ($this->captureNodeClasses[$class] ?? false) {

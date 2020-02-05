@@ -1,0 +1,5 @@
+    @Microsoft\PhpParser\Node\Expression\BinaryExpression ClassPropertyCase::$f === 2
+        @Microsoft\PhpParser\Node\Expression\ScopedPropertyAccessExpression ClassPropertyCase::$f
+             Microsoft\PhpParser\Node\QualifiedName ClassPropertyCase
+             Microsoft\PhpParser\Node\Expression\Variable $f
+         Microsoft\PhpParser\Node\NumericLiteral 2
