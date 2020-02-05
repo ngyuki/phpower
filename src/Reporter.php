@@ -44,7 +44,9 @@ class Reporter
                 $report .= "$expression\n$output\n";
             }
         }
-        $report = preg_replace('/^/m', '# ', $report);
+        if ($report !== '') {
+            $report = preg_replace('/^/m', '# ', $report);
+        }
         list($expression, $variable) = $last;
         $output = trim($this->dump($variable));
         if (strpos($output, "\n") === false) {

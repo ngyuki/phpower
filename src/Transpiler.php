@@ -138,6 +138,12 @@ class Transpiler
                 return false;
             }
         }
+        for ($parent = $node->parent; $parent; $parent = $parent->parent) {
+            if ($parent instanceof Node\Expression\IssetIntrinsicExpression) {
+                // isset()
+                return false;
+            }
+        }
         foreach ($classes as $class) {
             if ($this->captureNodeClasses[$class] ?? false) {
                 return true;

@@ -1,0 +1,5 @@
+    @Microsoft\PhpParser\Node\Expression\IssetIntrinsicExpression isset($a[$i])
+         Microsoft\PhpParser\Node\DelimitedList\ExpressionList $a[$i]
+             Microsoft\PhpParser\Node\Expression\SubscriptExpression $a[$i]
+                 Microsoft\PhpParser\Node\Expression\Variable $a
+                 Microsoft\PhpParser\Node\Expression\Variable $i
