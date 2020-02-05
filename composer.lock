@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8739a49678cd0b65f96f6e57284e74b3",
+    "content-hash": "89581a4288c2699d72d53b3cd2d6e5fb",
     "packages": [
         {
             "name": "microsoft/tolerant-php-parser",
@@ -1763,7 +1763,7 @@
     "prefer-lowest": false,
     "platform": {
         "php": "^7.2",
-        "ext-json": "^7.2"
+        "ext-json": "*"
     },
     "platform-dev": [],
     "platform-overrides": {
