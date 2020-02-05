@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "89581a4288c2699d72d53b3cd2d6e5fb",
+    "content-hash": "543b4661531c9acbc11560fea80b3b86",
     "packages": [
         {
             "name": "microsoft/tolerant-php-parser",
-            "version": "v0.0.19",
+            "version": "v0.0.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/microsoft/tolerant-php-parser.git",
-                "reference": "6c701e386f4efccbed5815016acc4920708bc998"
+                "reference": "e255aa978b45729094da2a1a6f9954044a244ff2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/microsoft/tolerant-php-parser/zipball/6c701e386f4efccbed5815016acc4920708bc998",
-                "reference": "6c701e386f4efccbed5815016acc4920708bc998",
+                "url": "https://api.github.com/repos/microsoft/tolerant-php-parser/zipball/e255aa978b45729094da2a1a6f9954044a244ff2",
+                "reference": "e255aa978b45729094da2a1a6f9954044a244ff2",
                 "shasum": ""
             },
             "require": {
@@ -45,7 +45,7 @@
                 }
             ],
             "description": "Tolerant PHP-to-AST parser designed for IDE usage scenarios",
-            "time": "2019-11-19T03:53:18+00:00"
+            "time": "2019-07-01T02:21:00+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",

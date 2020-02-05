@@ -18,7 +18,7 @@
     "require": {
         "php": "^7.2",
         "ext-json": "*",
-        "microsoft/tolerant-php-parser": "^0.0.19",
+        "microsoft/tolerant-php-parser": "^0.0.18",
         "symfony/var-dumper": "^4.4"
     },
     "require-dev": {
