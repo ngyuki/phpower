@@ -147,7 +147,7 @@ FAILURES!
 Tests: 5, Assertions: 5, Failures: 4.
 ```
 
-## Restriction
+## Limitations
 
 Only for phpunit installed locally in project with composer (phpunit.phar is not supported).
 
