@@ -30,7 +30,7 @@ class Transpiler
          // Node\Expression\ExitIntrinsicExpression::class => true,
          Node\Expression\IssetIntrinsicExpression::class => true,
          // Node\Expression\ListIntrinsicExpression::class => true,
-         // Node\Expression\MemberAccessExpression::class => true,
+         Node\Expression\MemberAccessExpression::class => true,
          Node\Expression\ObjectCreationExpression::class => true,
          // Node\Expression\ParenthesizedExpression::class => true,
          Node\Expression\PostfixUpdateExpression::class => true,
@@ -161,14 +161,14 @@ class Transpiler
                 return false;
             }
         }
-        foreach ($classes as $class) {
-            if ($this->captureNodeClasses[$class] ?? false) {
-                return true;
+        if ($node instanceof Node\Expression\MemberAccessExpression) {
+            if ($node->parent instanceof Node\Expression\CallExpression) {
+                // $obj->method()
+                return false;
             }
         }
-        if ($node instanceof Node\Expression\MemberAccessExpression) {
-            if ($node->parent instanceof Node\Expression\CallExpression === false) {
-                // object property
+        foreach ($classes as $class) {
+            if ($this->captureNodeClasses[$class] ?? false) {
                 return true;
             }
         }
