@@ -38,10 +38,13 @@ class Reporter
             $output = trim($this->dump($variable));
             if (strpos($output, "\n") === false) {
                 $report .= "$expression -> $output\n";
+            } elseif (strlen($expression) < 6) {
+                $sp = str_repeat(' ', strlen($expression) + 4);
+                $output = trim(preg_replace('/^/m', $sp, $output));
+                $report .= "$expression -> $output\n";
             } else {
                 $output = preg_replace('/^/m', '    ', $output);
-                $output = ' -> ' . trim($output) . PHP_EOL;
-                $report .= "$expression\n$output\n";
+                $report .= "$expression ->\n$output\n";
             }
         }
         if ($report !== '') {

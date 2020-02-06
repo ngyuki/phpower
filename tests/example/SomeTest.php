@@ -5,6 +5,14 @@ use PHPUnit\Framework\TestCase;
 
 class SomeTest extends TestCase
 {
+    public function test()
+    {
+        $ary = [1,2,3];
+        $zero = 0;
+        $two = 2;
+        assert(array_search($zero, $ary, true) === $two);
+    }
+
     public function test_01()
     {
         $a = 1;
