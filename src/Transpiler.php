@@ -155,6 +155,12 @@ class Transpiler
                 return false;
             }
         }
+        if ($node instanceof Node\Expression\Variable) {
+            if ($node->getText() === '$this') {
+                // $this
+                return false;
+            }
+        }
         foreach ($classes as $class) {
             if ($this->captureNodeClasses[$class] ?? false) {
                 return true;

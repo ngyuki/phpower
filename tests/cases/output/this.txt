@@ -1,0 +1,2 @@
+Assertion failed $this->get() === 2 -> false
+# $this->get() -> 1
