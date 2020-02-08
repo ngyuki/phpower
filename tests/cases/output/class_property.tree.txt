@@ -3,3 +3,8 @@
              Microsoft\PhpParser\Node\QualifiedName ClassPropertyCase
              Microsoft\PhpParser\Node\Expression\Variable $f
          Microsoft\PhpParser\Node\NumericLiteral 2
+    @Microsoft\PhpParser\Node\Expression\BinaryExpression $c::$f === 2
+        @Microsoft\PhpParser\Node\Expression\ScopedPropertyAccessExpression $c::$f
+            @Microsoft\PhpParser\Node\Expression\Variable $c
+             Microsoft\PhpParser\Node\Expression\Variable $f
+         Microsoft\PhpParser\Node\NumericLiteral 2

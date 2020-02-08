@@ -167,13 +167,13 @@ class Transpiler
             }
         }
 
-        for ($parent = $node->parent; $parent; $parent = $parent->parent) {
-            if ($parent instanceof Node\Expression\ScopedPropertyAccessExpression) {
-                // Class::$v
-                // Class::f()
+        // Class::$v
+        if ($node->parent instanceof Node\Expression\ScopedPropertyAccessExpression) {
+            if ($node === $node->parent->getLastChild()) {
                 return false;
             }
         }
+
         if ($node instanceof Node\Expression\ScopedPropertyAccessExpression) {
             if ($node->parent instanceof Node\Expression\CallExpression) {
                 // Class::f()

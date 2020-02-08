@@ -20,6 +20,7 @@ Assertion failed isset($o->{$i + 1}->{$j + 2}) -> false
 # $j + 2 -> 4
 
 Assertion failed isset($o::$v[$i + 1][$j + 2]) -> false
+# $o -> {#999}
 # $i -> 1
 # $i + 1 -> 2
 # $j -> 2

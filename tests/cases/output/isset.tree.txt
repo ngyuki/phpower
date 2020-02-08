@@ -37,7 +37,7 @@
              Microsoft\PhpParser\Node\Expression\SubscriptExpression $o::$v[$i+1][$j+2]
                  Microsoft\PhpParser\Node\Expression\SubscriptExpression $o::$v[$i+1]
                      Microsoft\PhpParser\Node\Expression\ScopedPropertyAccessExpression $o::$v
-                         Microsoft\PhpParser\Node\Expression\Variable $o
+                        @Microsoft\PhpParser\Node\Expression\Variable $o
                          Microsoft\PhpParser\Node\Expression\Variable $v
                     @Microsoft\PhpParser\Node\Expression\BinaryExpression $i+1
                         @Microsoft\PhpParser\Node\Expression\Variable $i

@@ -1,2 +1,6 @@
 Assertion failed ClassPropertyCase::$f === 2 -> false
 # ClassPropertyCase::$f -> 1
+
+Assertion failed $c::$f === 2 -> false
+# $c -> ClassPropertyCase {#999}
+# $c::$f -> 1
