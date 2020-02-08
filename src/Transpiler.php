@@ -146,6 +146,7 @@ class Transpiler
             }
         }
         if ($isset instanceof Node\Expression\IssetIntrinsicExpression) {
+            // @phan-suppress-next-line PhanTypeMismatchArgument
             for ($first = $isset->getFirstChildNode(Node::class); $first; $first = $first->getFirstChildNode(Node::class)) {
                 if ($node === $first) {
                     break;
@@ -168,8 +169,8 @@ class Transpiler
         }
 
         // Class::$v
-        if ($node->parent instanceof Node\Expression\ScopedPropertyAccessExpression) {
-            if ($node === $node->parent->getLastChild()) {
+        if (($parent = $node->parent) instanceof Node\Expression\ScopedPropertyAccessExpression) {
+            if ($node === $parent->getLastChild()) {
                 return false;
             }
         }
