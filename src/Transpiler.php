@@ -138,11 +138,36 @@ class Transpiler
                 return false;
             }
         }
-        for ($parent = $node->parent; $parent; $parent = $parent->parent) {
-            if ($parent instanceof Node\Expression\IssetIntrinsicExpression) {
-                // isset()
+
+        // isset
+        for ($isset = $node->parent; $isset; $isset = $isset->parent) {
+            if ($isset instanceof Node\Expression\IssetIntrinsicExpression) {
+                break;
+            }
+        }
+        if ($isset instanceof Node\Expression\IssetIntrinsicExpression) {
+            for ($first = $isset->getFirstChildNode(Node::class); $first; $first = $first->getFirstChildNode(Node::class)) {
+                if ($node === $first) {
+                    break;
+                }
+            }
+            if ($first instanceof Node\Expression\Variable) {
+                for ($parent = $node->parent; $parent; $parent = $parent->parent) {
+                    if ($parent instanceof Node\Expression\IssetIntrinsicExpression) {
+                        // isset($v)
+                        return false;
+                    }
+                    if ($parent instanceof Node\Expression) {
+                        break;
+                    }
+                }
+            } elseif ($first) {
+                // isset($a[$i][$j])
                 return false;
             }
+        }
+
+        for ($parent = $node->parent; $parent; $parent = $parent->parent) {
             if ($parent instanceof Node\Expression\ScopedPropertyAccessExpression) {
                 // Class::$v
                 // Class::f()

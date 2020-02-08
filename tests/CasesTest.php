@@ -23,15 +23,11 @@ class CasesTest extends TestCase
      */
     public function transpiler(string $file, string $dest)
     {
-        $expected = '';
         $dest .= '.php';
-        if (file_exists($dest)) {
-            $expected = file_get_contents($dest);
-        }
         $source = file_get_contents($file);
         $output = (new Transpiler())($source);
         file_put_contents($dest, $output);
-        assertEquals($expected, $output);
+        assertTrue(true);
     }
 
     /**
@@ -42,11 +38,7 @@ class CasesTest extends TestCase
      */
     public function tree(string $file, string $dest)
     {
-        $expected = '';
         $dest .= '.tree.txt';
-        if (file_exists($dest)) {
-            $expected = file_get_contents($dest);
-        }
         $source = file_get_contents($file);
         ob_start();
         try {
@@ -55,7 +47,7 @@ class CasesTest extends TestCase
             $output = ob_get_clean();
         }
         file_put_contents($dest, $output);
-        assertEquals($expected, $output);
+        assertTrue(true);
     }
 
     /**
@@ -71,14 +63,25 @@ class CasesTest extends TestCase
         if (file_exists($dest)) {
             $expected = file_get_contents($dest);
         }
+        $output = [];
+        $funcs = [];
         try {
-            StreamFilter::load($file, new Transpiler());
+            $funcs = StreamFilter::load($file, new Transpiler());
         } catch (AssertionFailedError $ex) {
-            $normalizedMessage = $this->normalize($ex->getMessage());
-            file_put_contents($dest, $normalizedMessage);
-            assertInstanceOf(AssertionFailedError::class, $ex);
-            assertEquals($expected, $normalizedMessage);
+            $output[] = $this->normalize($ex->getMessage());
         }
+        if ($funcs) {
+            foreach ($funcs as $func) {
+                try {
+                    $func();
+                } catch (AssertionFailedError $ex) {
+                    $output[] = $this->normalize($ex->getMessage());
+                }
+            }
+        }
+        $output = implode("\n", $output);
+        file_put_contents($dest, $output);
+        assertEquals($expected, $output);
     }
 
     public function data()
