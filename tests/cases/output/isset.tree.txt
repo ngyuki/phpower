@@ -1,10 +1,10 @@
-    @Microsoft\PhpParser\Node\Expression\IssetIntrinsicExpression isset($a)
-         Microsoft\PhpParser\Node\DelimitedList\ExpressionList $a
-             Microsoft\PhpParser\Node\Expression\Variable $a
+    @Microsoft\PhpParser\Node\Expression\IssetIntrinsicExpression isset($v)
+         Microsoft\PhpParser\Node\DelimitedList\ExpressionList $v
+             Microsoft\PhpParser\Node\Expression\Variable $v
     @Microsoft\PhpParser\Node\Expression\IssetIntrinsicExpression isset($a[$i+1])
          Microsoft\PhpParser\Node\DelimitedList\ExpressionList $a[$i+1]
              Microsoft\PhpParser\Node\Expression\SubscriptExpression $a[$i+1]
-                @Microsoft\PhpParser\Node\Expression\Variable $a
+                 Microsoft\PhpParser\Node\Expression\Variable $a
                 @Microsoft\PhpParser\Node\Expression\BinaryExpression $i+1
                     @Microsoft\PhpParser\Node\Expression\Variable $i
                      Microsoft\PhpParser\Node\NumericLiteral 1
@@ -12,7 +12,7 @@
          Microsoft\PhpParser\Node\DelimitedList\ExpressionList $a[$i+1][$j+2]
              Microsoft\PhpParser\Node\Expression\SubscriptExpression $a[$i+1][$j+2]
                  Microsoft\PhpParser\Node\Expression\SubscriptExpression $a[$i+1]
-                    @Microsoft\PhpParser\Node\Expression\Variable $a
+                     Microsoft\PhpParser\Node\Expression\Variable $a
                     @Microsoft\PhpParser\Node\Expression\BinaryExpression $i+1
                         @Microsoft\PhpParser\Node\Expression\Variable $i
                          Microsoft\PhpParser\Node\NumericLiteral 1
@@ -23,7 +23,7 @@
          Microsoft\PhpParser\Node\DelimitedList\ExpressionList $o->{$i+1}->{$j+2}
              Microsoft\PhpParser\Node\Expression\MemberAccessExpression $o->{$i+1}->{$j+2}
                  Microsoft\PhpParser\Node\Expression\MemberAccessExpression $o->{$i+1}
-                    @Microsoft\PhpParser\Node\Expression\Variable $o
+                     Microsoft\PhpParser\Node\Expression\Variable $o
                      Microsoft\PhpParser\Node\Expression\BracedExpression {$i+1}
                         @Microsoft\PhpParser\Node\Expression\BinaryExpression $i+1
                             @Microsoft\PhpParser\Node\Expression\Variable $i
@@ -37,7 +37,7 @@
              Microsoft\PhpParser\Node\Expression\SubscriptExpression $o::$v[$i+1][$j+2]
                  Microsoft\PhpParser\Node\Expression\SubscriptExpression $o::$v[$i+1]
                      Microsoft\PhpParser\Node\Expression\ScopedPropertyAccessExpression $o::$v
-                        @Microsoft\PhpParser\Node\Expression\Variable $o
+                         Microsoft\PhpParser\Node\Expression\Variable $o
                          Microsoft\PhpParser\Node\Expression\Variable $v
                     @Microsoft\PhpParser\Node\Expression\BinaryExpression $i+1
                         @Microsoft\PhpParser\Node\Expression\Variable $i
