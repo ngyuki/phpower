@@ -145,7 +145,7 @@ class Transpiler
             if (!$parent) {
                 break;
             }
-            // @phan-suppress-next-line PhanTypeMismatchArgument
+            // @phan-suppress-next-line PhanTypeMismatchArgumentProbablyReal
             if ($parent->getFirstChildNode(Node::class) !== $first) {
                 break;
             }

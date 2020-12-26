@@ -55,7 +55,7 @@ class Reporter
         if (strpos($output, "\n") === false) {
             return "Assertion failed $expression -> $output\n$report";
         } else {
-            $output = preg_replace('/^/m', '     ', (string)$output);
+            $output = preg_replace('/^/m', '     ', $output);
             $output = '  -> ' . trim($output) . PHP_EOL;
             return "Assertion failed $expression\n$output\n$report";
         }
