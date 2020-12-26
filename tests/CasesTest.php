@@ -27,7 +27,7 @@ class CasesTest extends TestCase
         $source = file_get_contents($file);
         $output = (new Transpiler())($source);
         file_put_contents($dest, $output);
-        assertTrue(true);
+        self::assertTrue(true);
     }
 
     /**
@@ -47,7 +47,7 @@ class CasesTest extends TestCase
             $output = ob_get_clean();
         }
         file_put_contents($dest, $output);
-        assertTrue(true);
+        self::assertTrue(true);
     }
 
     /**
@@ -81,7 +81,7 @@ class CasesTest extends TestCase
         }
         $output = implode("\n", $output);
         file_put_contents($dest, $output);
-        assertEquals($expected, $output);
+        self::assertEquals($expected, $output);
     }
 
     public function data()

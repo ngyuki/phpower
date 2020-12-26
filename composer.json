@@ -23,7 +23,7 @@
         "php": "^7.2",
         "ext-json": "*",
         "microsoft/tolerant-php-parser": "^0.0.18",
-        "phpunit/phpunit": "^8.5",
+        "phpunit/phpunit": "^8.5|^9.5",
         "symfony/var-dumper": "^3.4"
     },
     "require-dev": {
