@@ -1,0 +1,43 @@
+name: CI
+on:
+  - push
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - "7.2"
+          - "7.3"
+          - "7.4"
+        dependencies:
+          - lowest
+          - highest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: ast
+
+      - uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ matrix.dependencies }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php-version }}-
+            ${{ runner.os }}-php-
+
+      - uses: ramsey/composer-install@v1
+        with:
+          dependency-versions: ${{ matrix.dependencies }}
+
+      - run: vendor/bin/phpunit --colors=always
+
+      - run: vendor/bin/php-cs-fixer.phar fix --dry-run --diff --ansi -v
+
+      - run: vendor/bin/phan.phar --no-progress-bar --color
+
+      - run: vendor/bin/composer-require-checker.phar --ansi -vvv
