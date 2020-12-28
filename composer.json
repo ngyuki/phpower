@@ -13,23 +13,12 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
-    "repositories": {
-        "pharhub": {
-            "type": "composer",
-            "url": "https://packages.pharhub.dev/"
-        }
-    },
     "require": {
         "php": "^7.2|^8.0",
         "ext-json": "*",
         "microsoft/tolerant-php-parser": "^0.0.18",
         "phpunit/phpunit": "^8.5|^9.5",
         "symfony/var-dumper": "^3.4"
-    },
-    "require-dev": {
-        "pharhub/composer-require-checker": "^2.1",
-        "pharhub/phan": "^4.0",
-        "pharhub/php-cs-fixer": "^2.17"
     },
     "autoload": {
         "psr-4": {
@@ -47,22 +36,18 @@
             "@php vendor/bin/phpunit --colors=always --coverage-html coverage"
         ],
         "cs": [
-            "@php vendor/bin/php-cs-fixer.phar fix --dry-run --diff --ansi -v"
+            "php-cs-fixer fix --dry-run --diff --ansi -v"
         ],
         "fix": [
-            "@php vendor/bin/php-cs-fixer.phar fix --diff --ansi -v"
+            "php-cs-fixer fix --diff --ansi -v"
         ],
         "phan": [
-            "@php vendor/bin/phan.phar -p --color"
-        ],
-        "composer-require-checker": [
-            "@php vendor/bin/composer-require-checker.phar --ansi -vvv"
+            "phan -p --color"
         ],
         "qa": [
             "@composer cs",
             "@composer phan",
-            "@composer test",
-            "@composer composer-require-checker"
+            "@composer test"
         ]
     }
 }
