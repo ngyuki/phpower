@@ -59,6 +59,7 @@ class StreamFilter extends php_user_filter
                 $source = $translator($source);
             }
             $bucket = stream_bucket_new($this->stream, $source);
+            /** @phan-suppress-next-line PhanRedundantCondition for PHP 8.0 */
             assert(is_object($bucket));
             stream_bucket_append($out, $bucket);
             $this->source = '';
