@@ -6,7 +6,7 @@ $finder = PhpCsFixer\Finder::create()
     ->notPath('tests/cases')
 ;
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setFinder($finder)
     ->setRules([
         '@PSR2' => true,
