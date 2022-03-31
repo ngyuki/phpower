@@ -48,7 +48,7 @@ jobs:
   cs:
     runs-on: ubuntu-latest
     container:
-      image: ngyuki/php-dev:7.4
+      image: ngyuki/php-dev:8.1
     steps:
       - uses: actions/checkout@v2
       - run: php-cs-fixer fix --dry-run --diff --ansi -v
@@ -56,7 +56,7 @@ jobs:
   phan:
     runs-on: ubuntu-latest
     container:
-      image: ngyuki/php-dev:7.4
+      image: ngyuki/php-dev:8.1
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
