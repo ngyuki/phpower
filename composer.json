@@ -14,11 +14,11 @@
         "sort-packages": true
     },
     "require": {
-        "php": "^7.2|^8.0",
+        "php": "^7.4|^8.0|^8.1",
         "ext-json": "*",
-        "microsoft/tolerant-php-parser": "^0.0.18",
-        "phpunit/phpunit": "^8.5|^9.5",
-        "symfony/var-dumper": "^5.0"
+        "microsoft/tolerant-php-parser": "^0.1",
+        "phpunit/phpunit": "^9.5",
+        "symfony/var-dumper": "^5.3.7|^6.0"
     },
     "autoload": {
         "psr-4": {
